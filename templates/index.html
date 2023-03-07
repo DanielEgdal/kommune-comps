@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+   <h1>DVE Kommunekort</h1>
+
+   <form action="/submit" method="POST">
+        <br>
+        <p>WCA ID <input type = "text" name = "WCAID" /> </p>
+        <p>Show Map <input type="submit" name = "submit" /> </p>
+    </form>
+
+    <form action="/all" class="inline">
+        <button class="float-left submit-button" >Se alle danske konkurrencer</button>
+    </form>
+{% endblock %}

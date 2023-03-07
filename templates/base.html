@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DVE Kommunekort</title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='logo.png')}}">
+    <link rel="stylesheet"  type="text/css" href="{{url_for('.static', filename='style.css')}}">
+    {% block extrahead %} {% endblock %}
+</head>
+<body>
+    {% block content %} {% endblock %}
+
+    <hr>
+    
+</body>
+</html>

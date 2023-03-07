@@ -1,0 +1,5 @@
+secret_key.py
+WCA_export*
+__pycache__/*
+.ipynb_checkpoints/*
+kommuner.geojson
