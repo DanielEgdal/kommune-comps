@@ -32,6 +32,7 @@ def get_kommuner():
     kommuner_path = os.path.join(script_dir, 'kommuner.geojson')
     kommuner = gpd.read_file(kommuner_path)
     kommuner.crs ='EPSG:4326'
+    kommuner = kommuner.dissolve(by='KOMNAVN').reset_index()
 
     return kommuner
 
@@ -57,16 +58,16 @@ def make_map(municipalties:gpd.GeoDataFrame,comps:gpd.GeoDataFrame):
 def get_person_kommuner(personid:str,all_comps:gpd.GeoDataFrame,kommuner:gpd.GeoDataFrame):
     person_comps = all_comps.loc[all_comps['personId']==personid]
     person_municipalities = gpd.sjoin(kommuner, person_comps, predicate='contains')
-    person_municipalities = person_municipalities[['id','KOMKODE','KOMNAVN','geometry']]
-    person_municipalities.drop_duplicates(subset=['geometry'],inplace=True)
+    person_municipalities = person_municipalities[['id','KOMNAVN','geometry']]
+    person_municipalities.drop_duplicates(subset=['KOMNAVN'],inplace=True)
     m = make_map(person_municipalities,person_comps)
     return m
 
 def get_dk_kommuner(all_comps:gpd.GeoDataFrame,kommuner:gpd.GeoDataFrame):
     uniqueComps = all_comps.drop_duplicates(subset=['id'])
     municipalities = gpd.sjoin(kommuner, uniqueComps, predicate='contains')
-    municipalities = municipalities[['id','KOMKODE','KOMNAVN','geometry']]
-    municipalities.drop_duplicates(subset=['geometry'],inplace=True)
+    municipalities = municipalities[['id','KOMNAVN','geometry']]
+    municipalities.drop_duplicates(subset=['KOMNAVN'],inplace=True)
     m = make_map(municipalities,uniqueComps)
     return m
 
